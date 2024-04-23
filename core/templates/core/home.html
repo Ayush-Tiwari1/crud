@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'core/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+<body>
+    <div class="container-fluid">
+        <h1 class="text-center header p-2 m-2">Function Based View ModelForm CRUD Project</h1>
+        <div class="row">
+            <div class="col-md-6 p-2">
+                <h2 class="text-center head2">Add New Students</h2> 
+                <form action="" method="POST" novalidate>
+                    {% csrf_token %}
+                    {% for fm in form %}
+                        {{fm.label_tag}} {{fm}}{{fm.errors}} <br><br>
+                    {% endfor %}
+                    <input type="submit" value="submit" class="btn btn-primary">
+                </form>
+            </div>
+            <div class="col-md-6 p-2">
+                <h2 class="text-center head2">Show Student Information</h2>
+                {% if students %}
+                    {% for student in students %}
+                        {{student.id}} {{student.name}} {{student.email}} {{student.password}} <a href="{% url 'edit' student.id %}" class="btn btn-success">edit</a> <a href="{% url 'delete' student.id %}" class="btn btn-danger">delete</a> <br><br>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
